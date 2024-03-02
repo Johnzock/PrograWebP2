@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loteria desordenada</title>
+<style>
+  #gallery {
+    list-style: none;
+    padding: 0;
+  }
+  #gallery li {
+    display: inline-block;
+    margin: 10px;
+  }
+  #gallery img {
+    width: 200px;
+    height: auto;
+    border: 1px solid #ccc;
+  }
+</style>
+</head>
+<body>
+
+<h1>Galeria</h1>
+
+<ul id="gallery">
+</ul>
+
+<script>
+  var images = [
+    "Gallo.jpg",
+    "Barril.jpg",
+    "Escalera.jpg",
+    "Botella.jpg",
+    "Paraguas.jpg",
+    "Dama.jpg",
+    "Catrin.jpg",
+    "Diablito.jpg",
+    "Valiente.jpg",
+    "Arbol.jpg",
+    "Gorro.jpg",
+    "Muerte.jpg",
+    "Pajaro.jpg",
+    "Pera.jpg",
+    "Bandolon.jpg",
+    "Bandera.jpg",
+    "Garza.jpg",
+    "Violoncello.jpg",
+  ];
+  function cargarImagenes() {
+    var gallery = document.getElementById("gallery");
+    for (var i = 0; i < images.length; i++) {
+      var listItem = document.createElement("li");
+      var image = document.createElement("img");
+      image.src = images[i];
+      listItem.appendChild(image);
+      gallery.appendChild(listItem);
+    }
+  }
+
+  window.onload = cargarImagenes;
+</script>
+
+</body>
+</html>
