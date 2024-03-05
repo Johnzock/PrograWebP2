@@ -39,33 +39,57 @@
             </div>
             <div id="carrera">
                 <label for="carrera">Carrera:</label><br>
-                <select id="carreraInput" name="carrera">
+                <select id="carreraInput" name="carrera" onchange="toggleOtraCarrera(this.value)">
                     <option value="Electrica">Electrica</option>
                     <option value="Mecatronica">Mecatronica</option>
                     <option value="Software">Software</option>
+                    <option value="otra">Otra Carrera</option>
                 </select>
+                <div id="otraCarrera" style="display: none;">
+                    <label for="otraCarreraInput">Otra Carrera:</label><br>
+                    <input type="text" id="otraCarreraInput" name="otraCarreraInput"><br>
+                </div>
             </div>
             <br>
             <br>
             <input type="button" value="Enviar" onclick="guardarValores()">
         </form>
     </section>
-
     <div id="resultados"></div>
-
     <script>
+        var registros = [];
+
         function toggleOtraEscuela(value) {
             var otraEscuelaDiv = document.getElementById('otraEscuela');
             var carreraDiv = document.getElementById('carrera');
             if (value === 'otra') {
                 otraEscuelaDiv.style.display = 'block';
-                carreraDiv.style.display = 'none';
+                mostrarCarreras();
             } else if (value === 'Tec' || value === 'UPLC' || value === 'Ucla') {
                 otraEscuelaDiv.style.display = 'none';
                 carreraDiv.style.display = 'block';
             } else {
                 otraEscuelaDiv.style.display = 'none';
                 carreraDiv.style.display = 'none';
+            }
+        }
+
+        function mostrarCarreras() {
+            var carreraDiv = document.getElementById('carrera');
+            carreraDiv.style.display = 'block';
+            document.getElementById('carreraInput').innerHTML = `
+                <option value="Electrica">Electrica</option>
+                <option value="Mecatronica">Mecatronica</option>
+                <option value="Software">Software</option>
+                <option value="otra">Otra Carrera</option>
+            `;
+        }
+        function toggleOtraCarrera(value) {
+            var otraCarreraDiv = document.getElementById('otraCarrera');
+            if (value === 'otra') {
+                otraCarreraDiv.style.display = 'block';
+            } else {
+                otraCarreraDiv.style.display = 'none';
             }
         }
 
@@ -76,13 +100,41 @@
             var escuela = document.getElementById('escuela').value;
             var otraEscuela = document.getElementById('otraInput').value;
             var carrera = document.getElementById('carreraInput').value;
+            var otraCarrera = document.getElementById('otraCarreraInput').value;
+            var registro = {
+                nombre: nombre,
+                telefono: telefono,
+                email: email,
+                escuela: (escuela === 'otra' ? otraEscuela : escuela),
+                carrera: (carrera === 'otra' ? otraCarrera : carrera)
+            };
+            registros.push(registro);
+            limpiarCampos();
+            mostrarRegistros();
+        }
+        function limpiarCampos() {
+            document.getElementById('nombre').value = '';
+            document.getElementById('telefono').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('escuela').value = 'select';
+            document.getElementById('otraInput').value = '';
+            document.getElementById('carreraInput').value = '';
+            document.getElementById('otraCarreraInput').value = '';
+            document.getElementById('otraEscuela').style.display = 'none';
+            document.getElementById('otraCarrera').style.display = 'none';
+        }
 
+        function mostrarRegistros() {
             var resultadosDiv = document.getElementById('resultados');
-            resultadosDiv.innerHTML = "<p><strong>Nombre:</strong> " + nombre + "</p>" +
-                                        "<p><strong>Teléfono:</strong> " + telefono + "</p>" +
-                                        "<p><strong>Correo:</strong> " + email + "</p>" +
-                                        "<p><strong>Escuela:</strong> " + (escuela === 'otra' ? otraEscuela : escuela) + "</p>" +
-                                        "<p><strong>Carrera:</strong> " + carrera + "</p>";
+            resultadosDiv.innerHTML = "";
+
+            registros.forEach(function(registro) {
+                resultadosDiv.innerHTML += "<p><strong>Nombre:</strong> " + registro.nombre + "</p>" +
+                                            "<p><strong>Teléfono:</strong> " + registro.telefono + "</p>" +
+                                            "<p><strong>Correo:</strong> " + registro.email + "</p>" +
+                                            "<p><strong>Escuela:</strong> " + registro.escuela + "</p>" +
+                                            "<p><strong>Carrera:</strong> " + registro.carrera + "</p><hr>";
+            });
         }
     </script>
 </body>
