@@ -4,29 +4,18 @@
     color: black;
 }
 section.textbox {
-    padding: 5vh 20vw 2vh;
-    background-color: white;
-    margin: 8%;
-}
-* {
-    font-family: Helvetica;
-    margin: 0%;
-    color: black;
-}
-body {
-    font-family: Arial, sans-serif;
-    background-color: rgb(75, 73, 73);
-    margin: 0;
-    padding: 0;
-}
-
-.container {
     width: 50%;
     margin: 50px auto;
-    background-color: #fff;
+    background-color: #c7e6ff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(255, 249, 249);
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -56,7 +45,7 @@ select {
 }
 
 input[type="button"] {
-    background-color: #4CAF50;
+    background-color: #13a3ad;
     color: white;
     padding: 10px 20px;
     border: none;
